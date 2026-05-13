@@ -1,0 +1,157 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Dialog
+        id="draftDialog"
+        title="{i18n>draftDialogTitle}"
+        contentWidth="85%"
+        contentHeight="80%"
+        draggable="true"
+        resizable="true">
+
+        <VBox class="sapUiSmallMargin">
+            <List items="{drafts>/list}" mode="None">
+                <items>
+                    <CustomListItem>
+                        <VBox class="draftCard sapUiSmallMargin">
+
+                            <!-- ÜSTTE ÖZET + BUTONLAR -->
+                            <HBox justifyContent="SpaceBetween" alignItems="Center"
+                                  class="sapUiTinyMarginBottom">
+
+                                <!-- Sol: Badge + Özet -->
+                                <HBox alignItems="Center" wrap="Wrap">
+                                    <ObjectStatus
+                                        text="{drafts>belgeTuru}"
+                                        state="Information"
+                                        inverted="true"
+                                        class="sapUiSmallMarginEnd"/>
+                                    <Text text="{i18n>draftCompany}: {drafts>sirketKodu}"
+                                          class="draftSummaryText sapUiSmallMarginEnd"/>
+                                    <Text text="·"
+                                          class="draftSummaryText sapUiTinyMarginEnd sapUiTinyMarginBegin"/>
+                                    <Text text="{drafts>faturalamaParaBirimi}"
+                                          class="draftSummaryText sapUiSmallMarginEnd"/>
+                                </HBox>
+
+                                <!-- Sağ: Butonlar -->
+                                <HBox alignItems="Center">
+                                    <Button
+                                        text="{i18n>btnLoad}"
+                                        type="Accept"
+                                        press=".onDraftSelect"
+                                        class="draftActionBtn draftLoadBtn sapUiTinyMarginEnd"/>
+                                    <Button
+                                        text="{i18n>btnEdit}"
+                                        type="Emphasized"
+                                        press=".onDraftEdit"
+                                        class="draftActionBtn draftEditBtn sapUiTinyMarginEnd"/>
+                                    <Button
+                                        text="{i18n>btnDelete}"
+                                        type="Reject"
+                                        press=".onDraftDelete"
+                                        class="draftActionBtn draftDeleteBtn"/>
+                                </HBox>
+                            </HBox>
+
+                            <!-- AYIRICI -->
+                            <HBox class="sapUiTinyMarginBottom sapUiTinyMarginTop">
+                                <core:HTML content="&lt;div style='width:100%;height:1px;background:var(--sapGroup_ContentBorderColor);'&gt;&lt;/div&gt;"/>
+                            </HBox>
+
+                            <!-- DETAY ALANLAR: 3 SÜTUN -->
+                            <HBox wrap="Wrap" class="sapUiSmallMarginTop">
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldBelgeTuru}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>belgeTuru}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldSirketKodu}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>sirketKodu}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldParaBirimi}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>faturalamaParaBirimi}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldReferans}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>referans}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldFaturaTarihi}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>faturaTarihi}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldKayitTarihi}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>kayitTarihi}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldMusteri}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>musteri}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldSatici}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>satici}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldTutar}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>tutar}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldBelgeBaslik}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>belgeBaslikMetni}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldCariAciklama}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>cariAciklama}" class="draftFieldValue"/>
+                                </VBox>
+                                <VBox width="33%" class="sapUiSmallMarginBottom">
+                                    <Label text="{i18n>draftFieldBA}" class="draftFieldLabel"/>
+                                    <Text text="{drafts>ba}" class="draftFieldValue"/>
+                                </VBox>
+                            </HBox>
+
+                            <!-- KALEMLER -->
+                            <Panel expandable="true" expanded="true" headerText="{i18n>draftKalemler}">
+                                <Table items="{drafts>displayItems}">
+                                    <columns>
+                                        <Column><Text text="{i18n>ba}"/></Column>
+                                        <Column><Text text="{i18n>glAccount}"/></Column>
+                                        <Column hAlign="End"><Text text="{i18n>tutar}"/></Column>
+                                        <Column><Text text="{i18n>assignment}"/></Column>
+                                        <Column><Text text="{i18n>itemText}"/></Column>
+                                        <Column><Text text="{i18n>taxCode}"/></Column>
+                                        <Column><Text text="{i18n>profitCenter}"/></Column>
+                                        <Column><Text text="{i18n>costCenter}"/></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{drafts>ba}"/>
+                                                <Text text="{drafts>anaHesap}"/>
+                                                <Text text="{drafts>tutar}" textAlign="End"/>
+                                                <Text text="{drafts>tayin}"/>
+                                                <Text text="{drafts>aciklama}"/>
+                                                <Text text="{drafts>vergi}"/>
+                                                <Text text="{drafts>karMerkezi}"/>
+                                                <Text text="{drafts>masrafYeri}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </Panel>
+
+                        </VBox>
+                    </CustomListItem>
+                </items>
+            </List>
+        </VBox>
+
+        <endButton>
+            <Button text="{i18n>btnClose}" type="Transparent" press=".onCloseDraftDialog"/>
+        </endButton>
+
+    </Dialog>
+
+</core:FragmentDefinition>

@@ -1,0 +1,242 @@
+<mvc:View controllerName="com.exchangerate.exchangerateui.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout">
+
+    <Page class="sapUiResponsiveContentPadding">
+
+        <uxap:ObjectPageLayout id="objectPage" showTitleInHeaderContent="false">
+
+            <uxap:headerTitle>
+                <uxap:ObjectPageHeader
+                    objectTitle="{i18n>title}"
+                    showTitleSelector="false" />
+            </uxap:headerTitle>
+
+            <!-- SECTION 1: Header -->
+            <uxap:ObjectPageSection id="secHeader" title="{i18n>secHeaderTitle}">
+                <uxap:ObjectPageSubSection id="subHeader">
+                    <uxap:blocks>
+                        <l:Grid defaultSpan="XL6 L6 M12 S12" hSpacing="2" vSpacing="2">
+
+                            <!-- SOL BLOK -->
+                            <f:SimpleForm
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                                labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+                                adjustLabelSpan="false">
+
+                                <Label text="{i18n>belgeTuru}" required="true"/>
+                                <Input value="{view>/belgeTuru}"
+                                    placeholder="{i18n>belgeTuru}"
+                                    showValueHelp="true"
+                                    valueHelpRequest=".onDocumentTypesVH"
+                                    showSuggestion="false"
+                                    valueLiveUpdate="false"/>
+
+                                <Label text="{i18n>sirketKodu}" required="true"/>
+                                <Input value="{view>/sirketKodu}"
+                                    placeholder="{i18n>sirketKodu}"
+                                    showValueHelp="true"
+                                    valueHelpRequest=".onCompanyCodeVH"
+                                    showSuggestion="false"
+                                    valueLiveUpdate="false"/>
+
+                                <Label text="{i18n>satici}"/>
+                                <Input value="{view>/satici}"
+                                    showValueHelp="true"
+                                    valueHelpRequest=".onSupplierVH"/>
+
+                                <Label text="{i18n>musteri}"/>
+                                <Input value="{view>/musteri}"
+                                    showValueHelp="true"
+                                    valueHelpRequest=".onCustomerVH"/>
+
+                                <Label text="{i18n>faturaTarihi}"/>
+                                <DatePicker value="{view>/faturaTarihi}"
+                                    displayFormat="dd.MM.yyyy"
+                                    valueFormat="yyyy-MM-dd"
+                                    placeholder="dd.MM.yyyy"/>
+
+                                <Label text="{i18n>cariAciklama}"/>
+                                <Input value="{view>/cariAciklama}"/>
+
+                            </f:SimpleForm>
+
+                            <!-- SAĞ BLOK -->
+                            <f:SimpleForm
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                                labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+                                adjustLabelSpan="false">
+
+                                <Label text="{i18n>kayitTarihi}"/>
+                                <DatePicker value="{view>/kayitTarihi}"
+                                    displayFormat="dd.MM.yyyy"
+                                    valueFormat="yyyy-MM-dd"
+                                    placeholder="dd.MM.yyyy"/>
+
+                                <Label text="{i18n>faturalamaParaBirimi}"/>
+                                <Input value="{view>/faturalamaParaBirimi}"
+                                    showValueHelp="true"
+                                    valueHelpRequest=".onCurrencyVH"
+                                    showSuggestion="false"
+                                    valueLiveUpdate="false"/>
+
+                                <Label text="{i18n>tutar}"/>
+                                <HBox>
+                                    <Input value="{view>/tutar}"
+                                        width="150px"
+                                        type="Text"
+                                        liveChange=".onNumericLiveChange"
+                                        submit=".onNumericChange"/>
+                                    <Text text="TRY" class="sapUiSmallMarginBegin"/>
+                                </HBox>
+
+                                <Label text="{i18n>belgeBaslikMetni}"/>
+                                <Input value="{view>/belgeBaslikMetni}"/>
+
+                                <Label text="{i18n>referans}"/>
+                                <Input value="{view>/referans}"/>
+
+                                <Label text="{i18n>ba}"/>
+                                <Input value="{view>/ba}"
+                                    placeholder="{i18n>ba}"
+                                    showValueHelp="true"
+                                    valueHelpRequest=".onBAValuesVH"
+                                    showSuggestion="false"
+                                    valueLiveUpdate="false"/>
+
+                            </f:SimpleForm>
+
+                        </l:Grid>
+                    </uxap:blocks>
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+
+            <!-- SECTION 2: Line Items -->
+            <uxap:ObjectPageSection id="secItems" title="{i18n>secItemsTitle}">
+                <uxap:ObjectPageSubSection id="subItems">
+                    <VBox class="sapUiSmallMargin">
+
+                        <Toolbar>
+                            <ToolbarSpacer/>
+                            <Button
+                                icon="sap-icon://add"
+                                type="Emphasized"
+                                press=".onAddItem"
+                                class="sapUiTinyMargin sapMBtnRound"/>
+                        </Toolbar>
+
+                        <Table id="itemsTable" items="{ path: 'view>/items' }">
+                            <columns>
+                                <Column><Text text="{i18n>ba}"/></Column>
+                                <Column><Text text="{i18n>glAccount}"/></Column>
+                                <Column><Text text="{i18n>tutar}"/></Column>
+                                <Column><Text text="{i18n>assignment}"/></Column>
+                                <Column><Text text="{i18n>itemText}"/></Column>
+                                <Column><Text text="{i18n>taxCode}"/></Column>
+                                <Column><Text text="{i18n>profitCenter}"/></Column>
+                                <Column><Text text="{i18n>costCenter}"/></Column>
+                                <Column width="3rem"/>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <!-- <Input value="{view>ba}"/> -->
+                                        <Input value="{view>ba}"
+                                            showValueHelp="true"
+                                            valueHelpRequest=".onItemBAValuesVH"
+                                            showSuggestion="false"
+                                            valueLiveUpdate="false"/>
+                                        <Input value="{view>anaHesap}"
+                                            showValueHelp="true"
+                                            valueHelpRequest=".onGLAccountsVH"
+                                            showSuggestion="false"
+                                            valueLiveUpdate="false"/>
+                                        <Input value="{view>tutar}"
+                                            type="Text"
+                                            liveChange=".onNumericLiveChange"
+                                            submit=".onNumericChange"/>
+                                        <Input value="{view>tayin}"/>
+                                        <Input value="{view>aciklama}"/>
+                                        <Input value="{view>vergi}"
+                                            showValueHelp="true"
+                                            valueHelpRequest=".onTaxCodesVH"
+                                            showSuggestion="false"
+                                            valueLiveUpdate="false"/>
+                                        <Input value="{view>karMerkezi}"
+                                            showValueHelp="true"
+                                            valueHelpRequest=".onProfitCenterVH"/>
+                                        <Input value="{view>masrafYeri}"
+                                            showValueHelp="true"
+                                            valueHelpRequest=".onCostCenterVH"/>
+                                        <Button icon="sap-icon://sys-cancel"
+                                            type="Transparent"
+                                            press=".onDeleteItem"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+
+                    </VBox>
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+
+            <!-- SECTION 3: Operations -->
+            <uxap:ObjectPageSection title="{i18n>secOperations}">
+                <uxap:ObjectPageSubSection>
+                    <VBox>
+                        <MessageStrip
+                            text="{i18n>msgEditMode}"
+                            type="Information"
+                            showIcon="true"
+                            visible="{= !!${view>/editingFxId} }"
+                            class="sapUiSmallMarginBottom"/>
+
+                        <HBox justifyContent="SpaceBetween" alignItems="Center">
+                            <Button
+                                text="{i18n>btnClear}"
+                                press=".onClear"
+                                type="Transparent"/>
+                            <HBox>
+                                <Button
+                                    text="{i18n>btnCancelEdit}"
+                                    press=".onCancelEdit"
+                                    type="Attention"
+                                    visible="{= !!${view>/editingFxId} }"
+                                    class="sapUiSmallMarginEnd"/>
+                                <Button
+                                    text="{i18n>btnUpdateDraft}"
+                                    press=".onUpdateDraft"
+                                    type="Emphasized"
+                                    visible="{= !!${view>/editingFxId} }"
+                                    class="sapUiSmallMarginEnd"/>
+                                <Button
+                                    text="{i18n>btnSaveDraft}"
+                                    type="Emphasized"
+                                    press=".onSaveDraft"
+                                    visible="{= !${view>/editingFxId} }"
+                                    class="sapUiSmallMarginEnd"/>
+                                <Button
+                                    text="{i18n>btnPostService}"
+                                    type="Accept"
+                                    press=".onPostExchangeRate"
+                                    class="sapUiSmallMarginEnd"/>
+                                <Button
+                                    text="{i18n>btnShowDrafts}"
+                                    press=".onShowDrafts"/>
+                            </HBox>
+                        </HBox>
+                    </VBox>
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+
+        </uxap:ObjectPageLayout>
+
+    </Page>
+
+</mvc:View>

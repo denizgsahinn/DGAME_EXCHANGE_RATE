@@ -1,0 +1,16 @@
+node_modules
+app/**/node_modules
+approuter/node_modules
+mta_archives
+app/mta_archives
+*.mtar
+gen
+.git
+.vscode
+.env
+default-env.json
+*.log
+test
+tests
+coverage
+dist

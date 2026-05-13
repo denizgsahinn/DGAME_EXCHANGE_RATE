@@ -1,0 +1,11 @@
+{
+  "xsappname": "exchangerate-approuter",
+  "tenant-mode": "dedicated",
+  "scopes": [],
+  "role-templates": [],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://*.cfapps.*.hana.ondemand.com/**"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "exchangerateui",
+  "version": "0.0.1",
+  "description": "An SAP Fiori application.",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html",
+  "dependencies": {},
+  "devDependencies": {
+    "@ui5/cli": "^4.0.33",
+    "@sap/ux-ui5-tooling": "1",
+    "@sap/approuter": "^14.0.0"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js",
+    "deploy-config": "npx -p @sap/ux-ui5-tooling fiori add deploy-config cf",
+     "build": "ui5 build --clean-dest --dest dist && mkdir -p deploy && cd dist && zip -r ../deploy/exchangerateui.zip ."
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "ExchangeRate",
+  "version": "1.0.0",
+  "engines": {
+    "node": "20.x",
+    "npm": "10.x"
+  },
+  "description": "A simple CAP project.",
+  "dependencies": {
+    "@sap-cloud-sdk/connectivity": "^4.4.0",
+    "@sap-cloud-sdk/http-client": "^4.2.0",
+    "@sap-cloud-sdk/util": "^4.2.0",
+    "@sap/cds": "^9.5.2",
+    "@sap/low-code-event-handler": "^1.2.5",
+    "@sap/xsenv": ">=3.3.2 <3.3.3",
+    "@sap/xssec": "^4.12.0",
+    "express": "^4",
+    "hdb": "^2.26.3",
+    "passport": "^0.7.0",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@sap/dev-cap-tools": "^1.31.0",
+    "@ui5/cli": "^4.0.38",
+    "cds-plugin-ui5": "^0.13.0",
+    "mbt": "^1.2.35"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "build": "cds build --production",
+    "start-local": "npm run generate-entry-point && npm run cds-watch",
+    "generate-entry-point": "dev-cap-tools gen-entrypoint",
+    "cds-watch": "cds watch --open",
+    "watch-exchangerateui": "cds watch --open com.exchangerate.exchangerateui/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "private": true,
+  "cds": {
+    "requires": {
+      "db": false,
+      "auth": {
+        "[development]": {
+          "kind": "dummy"
+        },
+        "[production]": {
+          "kind": "xsuaa"
+        }
+      },
+      "S4H_DRAFT_PROD": {
+        "kind": "odata",
+        "credentials": {
+          "destination": "S4H_DRAFT_PROD"
+        }
+      },
+      "S4H_ODATA_PROD": {
+        "kind": "odata",
+        "credentials": {
+          "destination": "S4H_ODATA_PROD"
+        }
+      },
+      "S4H_SOAP_PROD": {
+        "kind": "odata",
+        "credentials": {
+          "destination": "S4H_SOAP_PROD"
+        }
+      }
+    }
+  }
+}

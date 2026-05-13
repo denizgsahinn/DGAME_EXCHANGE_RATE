@@ -1,0 +1,140 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout">
+
+    <Dialog
+        id="draftDialog"
+        title="Taslak Belgeler"
+        contentWidth="85%"
+        contentHeight="80%"
+        draggable="true"
+        resizable="true">
+
+        <VBox class="sapUiSmallMargin">
+
+            <List
+                items="{drafts>/list}"
+               mode="SingleSelectMaster"
+                selectionChange=".onDraftSelect">
+
+                <items>
+                    <CustomListItem>
+
+                        <VBox class="draftCard sapUiSmallMarginBottom">
+
+                            <!-- ================= HEADER (3 COLUMN) ================= -->
+                            <HBox
+                                wrap="Wrap"
+                                justifyContent="Start"
+                                class="sapUiSmallMarginBottom">
+                                <!-- COLUMN 1 -->
+                                <VBox width="30%" class="sapUiMediumMarginEnd">
+                                    <HBox class="sapUiTinyMarginBottom">
+                                        <Label text="Belge Türü:" width="10rem" />
+                                        <Text text="{drafts>belgeTuru}"/>
+                                    </HBox>
+                                    <HBox class="sapUiTinyMarginBottom">
+                                        <Label text="Şirket Kodu:" width="10rem"/>
+                                        <Text text="{drafts>sirketKodu}"/>
+                                    </HBox>
+                                    <HBox class="sapUiTinyMarginBottom">
+                                        <Label text="Satıcı:" width="10rem"/>
+                                        <Text text="{drafts>satici}"/>
+                                    </HBox>
+                                    <HBox>
+                                        <Label text="Müşteri:" width="10rem"/>
+                                        <Text text="{drafts>musteri}"/>
+                                    </HBox>
+                                </VBox>
+
+                                <!-- COLUMN 2 -->
+                                <VBox width="30%" class="sapUiMediumMarginEnd">
+                                    <HBox class="sapUiTinyMarginBottom">
+                                        <Label text="Fatura Tarihi:" width="10rem"/>
+                                        <Text text="{drafts>faturaTarihi}"/>
+                                    </HBox>
+                                    <HBox class="sapUiTinyMarginBottom">
+                                        <Label text="Kayıt Tarihi:" width="10rem"/>
+                                        <Text text="{drafts>kayitTarihi}"/>
+                                    </HBox>
+                                    <HBox class="sapUiTinyMarginBottom">
+                                        <Label text="Cari Açıklama:" width="10rem"/>
+                                        <Text text="{drafts>cariAciklama}"/>
+                                    </HBox>
+                                    <HBox>
+                                        <Label text="Fatura PB:" width="10rem"/>
+                                        <Text text="{drafts>faturalamaParaBirimi}"/>
+                                    </HBox>
+                                </VBox>
+
+                                <!-- COLUMN 3 -->
+                                <VBox width="30%">
+                                    <HBox class="sapUiTinyMarginBottom">
+                                        <Label text="Tutar:" width="10rem"/>
+                                        <Text text="{drafts>tutar}"/>
+                                    </HBox>
+                                    <HBox class="sapUiTinyMarginBottom">
+                                        <Label text="Belge Başlık Metni:" width="10rem"/>
+                                        <Text text="{drafts>belgeBaslikMetni}"/>
+                                    </HBox>
+                                    <HBox class="sapUiTinyMarginBottom">
+                                        <Label text="Referans:" width="10rem"/>
+                                        <Text text="{drafts>referans}"/>
+                                    </HBox>
+                                    <HBox>
+                                        <Label text="B/A:" width="10rem"/>
+                                        <Text text="{drafts>ba}"/>
+                                    </HBox>
+                                </VBox>
+
+                            </HBox>
+
+                            <!-- ================= ITEMS ================= -->
+                            <Panel
+                                expandable="true"
+                                expanded="true"
+                                headerText="Kalemler">
+
+                                <Table items="{drafts>items}">
+                                    <columns>
+                                        <Column><Text text="BA"/></Column>
+                                        <Column><Text text="Ana Hesap"/></Column>
+                                        <Column><Text text="Tutar"/></Column>
+                                        <Column><Text text="Vergi"/></Column>
+                                        <Column><Text text="K/M"/></Column>
+                                        <Column><Text text="M/Y"/></Column>
+                                    </columns>
+
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{drafts>ba}"/>
+                                                <Text text="{drafts>anaHesap}"/>
+                                                <Text text="{drafts>tutar}"/>
+                                                <Text text="{drafts>vergi}"/>
+                                                <Text text="{drafts>karMerkezi}"/>
+                                                <Text text="{drafts>masrafYeri}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </Panel>
+
+                        </VBox>
+                    </CustomListItem>
+                </items>
+            </List>
+        </VBox>
+
+        <!-- ================= DIALOG BUTTON ================= -->
+        <endButton>
+            <Button
+                text="Kapat"
+                type="Transparent"
+                press=".onCloseDraftDialog"/>
+        </endButton>
+
+    </Dialog>
+
+</core:FragmentDefinition>

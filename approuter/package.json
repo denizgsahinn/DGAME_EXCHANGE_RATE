@@ -1,0 +1,11 @@
+{
+  "name": "exchangerate-approuter",
+  "version": "1.0.0",
+  "engines": { "node": "20.x", "npm": "10.x" },
+  "dependencies": {
+    "@sap/approuter": "^12"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js"
+  }
+}

@@ -1,0 +1,187 @@
+<mvc:View controllerName="com.exchangerate.exchangerateui.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout">
+
+    <Page class="sapUiResponsiveContentPadding">
+
+        <!-- === OBJECT PAGE LAYOUT === -->
+        <uxap:ObjectPageLayout id="objectPage"
+        showTitleInHeaderContent="false"
+        >
+
+            <uxap:headerTitle>
+                <uxap:ObjectPageHeader
+                    objectTitle="{i18n>title}"
+                    showTitleSelector="false" />
+            </uxap:headerTitle>
+
+            <!-- ==========================================
+                1. SECTION — Belge Başlık Bilgileri
+            =========================================== -->
+            <uxap:ObjectPageSection id="secHeader" title="Belge Başlık Bilgileri">
+                <uxap:ObjectPageSubSection id="subHeader">
+                    <uxap:blocks>
+
+                        <l:Grid defaultSpan="XL6 L6 M12 S12" hSpacing="2" vSpacing="2">
+
+                            <!-- SOL BLOK -->
+                            <f:SimpleForm
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                                labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+                                adjustLabelSpan="false">
+
+                                <Label text="Belge Türü" required="true"/>
+                                <Input value="{view>/belgeTuru}" placeholder="Belge türü" showValueHelp="true" valueHelpRequest=".onDocumentTypesVH"/>
+
+                                <Label text="Şirket Kodu" required="true"/>
+                                <Input value="{view>/sirketKodu}" placeholder="Şirket kodu" showValueHelp="true" valueHelpRequest=".onCompanyCodeVH"/>
+
+                                <Label text="Satıcı"/>
+                                <Input value="{view>/satici}" showValueHelp="true"
+                                    valueHelpRequest=".onSupplierVH"/>
+
+                                <Label text="Müşteri"/>
+                                <Input value="{view>/musteri}" showValueHelp="true"
+                                    valueHelpRequest=".onCustomerVH"/>
+
+                                <Label text="Fatura Tarihi"/>
+                                <DatePicker value="{view>/faturaTarihi}"
+                                            displayFormat="dd.MM.yyyy"
+                                            valueFormat="yyyy-MM-dd"/>
+
+                                <Label text="Cari Açıklama"/>
+                                <Input value="{view>/cariAciklama}"/>
+
+                            </f:SimpleForm>
+
+
+                            <!-- SAĞ BLOK -->
+                            <f:SimpleForm
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                                labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+                                adjustLabelSpan="false">
+
+                                <Label text="Kayıt Tarihi"/>
+                                <DatePicker value="{view>/kayitTarihi}"
+                                            displayFormat="dd.MM.yyyy"
+                                            valueFormat="yyyy-MM-dd"/>
+
+                                <Label text="Faturalama Para Birimi"/>
+                                <Input value="{view>/faturalamaParaBirimi}"
+                                    showValueHelp="true"
+                                    valueHelpRequest=".onCurrencyVH"/>
+
+                                <Label text="Tutar"/>
+                                <HBox>
+                                    <Input value="{view>/tutar}" width="150px" type="Text" liveChange=".onNumericLiveChange" submit=".onNumericChange" />
+                                    <Text text="TRY" class="sapUiSmallMarginBegin"/>
+                                </HBox>
+
+                                <Label text="Belge Başlık Metni"/>
+                                <Input value="{view>/belgeBaslikMetni}"/>
+
+                                <Label text="Referans"/>
+                                <Input value="{view>/referans}"/>
+
+                                <Label text="B/A"/>
+                                <Input value="{view>/ba}" placeholder="B/A" showValueHelp="true"  valueHelpRequest=".onBAValuesVH"/>
+
+                            </f:SimpleForm>
+
+                        </l:Grid>
+
+                    </uxap:blocks>
+
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+
+            <!-- ==========================================
+                2. SECTION — Kalem Bilgileri (Table)
+            =========================================== -->
+            <uxap:ObjectPageSection id="secItems" title="Belge Kalemleri">
+                <uxap:ObjectPageSubSection id="subItems">
+
+                    <VBox class="sapUiSmallMargin">
+
+                        <Toolbar>
+                            <ToolbarSpacer/>
+                            <Button
+                                icon="sap-icon://add"
+                                type="Emphasized"
+                                press=".onAddItem"
+                                class="sapUiTinyMargin sapMBtnRound"
+                            />
+                        </Toolbar>
+
+
+                        <Table id="itemsTable"
+                            items="{ path: 'view>/items' }">
+
+                            <columns>
+                                <Column><Text text="BA"/></Column>
+                                <Column><Text text="Ana Hesap"/></Column>
+                                <Column><Text text="Tutar"/></Column>
+                                <Column><Text text="Tayin"/></Column>
+                                <Column><Text text="Açıklama"/></Column>
+                                <Column><Text text="Vergi"/></Column>
+                                <Column><Text text="Kar Merkezi"/></Column>
+                                <Column><Text text="Masraf Yeri"/></Column>
+                                <Column width="3rem"/>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Input value="{view>ba}"/>
+                                        <Input value="{view>anaHesap}"
+                                            showValueHelp="true"
+                                            valueHelpRequest=".onGLAccountsVH"/>
+                                        <Input value="{view>tutar}" type="Text" liveChange=".onNumericLiveChange" submit=".onNumericChange"/>
+                                        <Input value="{view>tayin}"/>
+                                        <Input value="{view>aciklama}"/>
+                                        <Input value="{view>vergi}" showValueHelp="true" valueHelpRequest=".onTaxCodesVH"/>
+                                        <Input value="{view>karMerkezi}" showValueHelp="true" valueHelpRequest=".onProfitCenterVH"/>
+                                        <Input value="{view>masrafYeri}" showValueHelp="true" valueHelpRequest=".onCostCenterVH"/>
+                                        <Button icon="sap-icon://sys-cancel"
+                                                type="Transparent"
+                                                press=".onDeleteItem"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+
+                        </Table>
+
+                        
+                    </VBox>
+
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+
+            <!-- ==========================================
+                ALT BUTONLAR
+            =========================================== -->
+            <uxap:ObjectPageSection title="İşlemler">
+                <uxap:ObjectPageSubSection>
+
+                    <Toolbar>
+                        <Button text="Formu Temizle" press=".onClear"/>
+                        <ToolbarSpacer/>
+                        <Button text="Save Draft" type="Emphasized" press=".onSaveDraft"/>
+                        <Button text="Post to Service" type="Emphasized" press=".onPostExchangeRate"/>
+                        <Button text="Taslakları Gör" enabled="true" press=".onShowDrafts"/>
+                    </Toolbar>
+
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+
+        </uxap:ObjectPageLayout>
+
+    </Page>
+
+</mvc:View>

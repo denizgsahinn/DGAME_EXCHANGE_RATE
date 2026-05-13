@@ -1,0 +1,58 @@
+  _schema-version: "3.2"
+  ID: exchangerate
+  version: 1.0.0
+
+  modules:
+    # =========================
+    # CAP Backend
+    # =========================
+    - name: exchangerate-srv
+      type: nodejs
+      path: .
+      parameters:
+        memory: 512M
+      provides:
+        - name: exchangerate-srv-api
+          properties:
+            url: ${default-url}
+      requires:
+        - name: exchangerate-uaa
+        - name: exchangerate-destination
+        - name: exchangerate-connectivity 
+
+    # =========================
+    # AppRouter
+    # =========================
+    - name: exchangerate-approuter
+      type: approuter.nodejs
+      path: approuter
+      parameters:
+        memory: 256M
+      requires:
+        - name: exchangerate-uaa
+        - name: exchangerate-destination 
+        - name: exchangerate-srv-api
+          group: destinations
+          properties:
+            name: exchangerate-srv-api
+            url: ~{url}
+            forwardAuthToken: true
+
+  resources:
+    - name: exchangerate-uaa
+      type: org.cloudfoundry.managed-service
+      parameters:
+        service: xsuaa
+        service-plan: application
+        path: xs-security.json
+
+    - name: exchangerate-destination
+      type: org.cloudfoundry.managed-service
+      parameters:
+        service: destination
+        service-plan: lite
+    - name: exchangerate-connectivity       # ✅ Internet proxy için gerekli
+      type: org.cloudfoundry.managed-service
+      parameters:
+        service: connectivity
+        service-plan: lite

@@ -1,0 +1,103 @@
+/* Draft list card */
+.draftCard {
+    border: 2px solid rgb(246, 242, 185);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    background-color: var(--sapList_Background);
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+/* Hover effect */
+.draftCard:hover {
+    border-color: var(--sapHighlightColor);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
+}
+
+/* Panel içi tablo biraz daha sıkı dursun */
+.draftCard .sapMTable {
+    margin-top: 0.5rem;
+}
+
+/* Mobilde dokunma alanı rahat olsun */
+.sapUiSizeCozy .draftCard {
+    padding: 1rem;
+}
+
+/*********** */
+
+.draftBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 1.25rem;
+    padding: 0 0.5rem;
+    border-radius: 0.75rem;
+    background-color: var(--sapHighlightColor);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.draftActionBtn {
+    border-radius: 1rem !important;
+    font-size: 0.75rem !important;
+    min-width: 4rem !important;
+    height: 1.75rem !important;
+    padding: 0 0.75rem !important;
+}
+
+.draftLoadBtn {
+    background-color: var(--sapButton_Accept_Background) !important;
+    border: 1px solid var(--sapButton_Accept_BorderColor) !important;
+    color: var(--sapButton_Accept_BorderColor) !important;
+}
+
+.draftEditBtn {
+    background-color: var(--sapButton_Emphasized_Background) !important;
+    border: 1px solid var(--sapButton_Emphasized_BorderColor) !important;
+    color: var(--sapButton_Emphasized_TextColor) !important;
+}
+
+.draftDeleteBtn {
+    background-color: var(--sapButton_Reject_Background) !important;
+    border: 1px solid var(--sapButton_Reject_BorderColor) !important;
+    color: var(--sapButton_Reject_TextColor) !important;
+}
+
+/*
+.draftSummaryText {
+    font-size: 0.75rem;
+    color: var(--sapContent_LabelColor);
+}
+
+.draftFieldLabel {
+    font-size: 0.7rem;
+    color: var(--sapContent_LabelColor);
+    margin-bottom: 0.1rem;
+}
+
+.draftFieldValue {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--sapTextColor);
+}
+    */
+
+.draftFieldLabel {
+    font-size: 0.8rem;
+    color: var(--sapContent_LabelColor);
+    margin-bottom: 0.1rem;
+}
+
+.draftFieldValue {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--sapTextColor);
+}
+
+.draftSummaryText {
+    font-size: 0.8rem;
+    color: var(--sapContent_LabelColor);
+}
